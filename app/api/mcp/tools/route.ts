@@ -11,6 +11,9 @@ export async function GET() {
     const accessToken =
       cookieStore.get("sf_access_token")?.value;
 
+    const idToken =
+      cookieStore.get("sf_id_token")?.value;
+
     if (!accessToken) {
       return NextResponse.json(
         {
@@ -25,6 +28,13 @@ export async function GET() {
       version: "0.1.0",
     });
 
+    console.log("Access Token Present:", !!accessToken);
+    console.log("ID Token Present:", !!idToken);
+    console.log(
+      "MCP URL:",
+      process.env.SALESFORCE_MCP_URL
+    );
+
     const transport =
       new StreamableHTTPClientTransport(
         new URL(
@@ -33,7 +43,8 @@ export async function GET() {
         {
           requestInit: {
             headers: {
-              Authorization: `Bearer ${accessToken}`,
+              //Authorization: `Bearer ${accessToken}`,
+              Authorization: `Bearer ${idToken}`,
             },
           },
         }
