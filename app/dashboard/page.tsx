@@ -36,6 +36,13 @@ export default async function Dashboard() {
         >
           Test MCP Endpoint
         </a>
+        &nbsp;&nbsp;&nbsp;
+        <a
+          href="/api/mcp/tools"
+          className="inline-block rounded bg-purple-600 px-4 py-2 text-white hover:bg-purple-700"
+        >
+          List MCP Tools
+        </a>
 
 
       </div>
