@@ -48,13 +48,18 @@ export async function GET() {
       tools,
     });
   } catch (error) {
-    return NextResponse.json(
+      console.error("MCP Error:", error);
+      return NextResponse.json(
       {
         success: false,
         error:
           error instanceof Error
-            ? error.message
-            : "Unknown error",
+            ? {
+                name: error.name,
+                message: error.message,
+                stack: error.stack,
+              }
+            : error,
       },
       { status: 500 }
     );
