@@ -83,6 +83,7 @@ export async function GET(request: NextRequest) {
       maxAge: 60 * 60 * 24 * 30,
     });
 
+    if (tokenData.id_token) {
     response.cookies.set("sf_id_token", tokenData.id_token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -90,6 +91,7 @@ export async function GET(request: NextRequest) {
       path: "/",
       maxAge: 60 * 60,
     });
+  }
 
     // Remove one-time PKCE verifier
     response.cookies.set("pkce_verifier", "", {
