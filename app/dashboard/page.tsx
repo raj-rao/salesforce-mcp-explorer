@@ -15,7 +15,7 @@ export default async function Dashboard() {
         Salesforce MCP Dashboard
       </h1>
 
-      <div className="mt-6 space-y-2">
+      <div className="mt-6 space-y-4">
         <p>
           Connected: {accessToken ? "✅ Yes" : "❌ No"}
         </p>
@@ -23,6 +23,13 @@ export default async function Dashboard() {
         <p>
           Instance URL: {instanceUrl ?? "Not Available"}
         </p>
+
+        <a
+          href="/api/mcp/test"
+          className="inline-block rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+        >
+          Test MCP Endpoint
+        </a>
       </div>
     </main>
   );
