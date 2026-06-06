@@ -3,6 +3,7 @@ import { generateCodeVerifier, generateCodeChallenge } from "@/lib/pkce";
 
 export async function GET() {
   const verifier = generateCodeVerifier();
+  console.log("Generated PKCE verifier:", verifier);
   const challenge = generateCodeChallenge(verifier);
 
   const authUrl = new URL(
@@ -37,5 +38,7 @@ export async function GET() {
     path: "/",
   });
 
+  
+  console.log("PKCE cookie set");
   return response;
 }
