@@ -43,6 +43,7 @@ export async function GET(request: NextRequest) {
 
     const tokenData = await tokenResponse.json();
 
+    console.log(JSON.stringify(tokenData, null, 2));
     if (!tokenResponse.ok) {
       return NextResponse.json(
         {
