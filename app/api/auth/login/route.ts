@@ -23,7 +23,7 @@ export async function GET() {
 
   authUrl.searchParams.set(
     "scope",
-    "refresh_token openid mcp_api"
+    "refresh_token openid mcp_api api"
   );
 
   authUrl.searchParams.set("code_challenge", challenge);
