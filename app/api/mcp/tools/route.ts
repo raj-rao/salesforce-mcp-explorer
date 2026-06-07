@@ -1,8 +1,9 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { createSalesforceMcpClient } from "@/lib/salesforce-mcp"; //NEW
 
-import { Client } from "@modelcontextprotocol/sdk/client/index.js";
-import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
+//import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+//import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 
 export async function GET() {
   try {
@@ -11,8 +12,6 @@ export async function GET() {
     const accessToken =
       cookieStore.get("sf_access_token")?.value;
 
-    const idToken =
-      cookieStore.get("sf_id_token")?.value;
 
     if (!accessToken) {
       return NextResponse.json(
@@ -23,6 +22,7 @@ export async function GET() {
       );
     }
 
+    /*ORIGINAL
     const client = new Client({
       name: "salesforce-mcp-explorer",
       version: "0.1.0",
@@ -58,6 +58,12 @@ export async function GET() {
       );
 
     await client.connect(transport);
+    */
+
+    const client =
+      await createSalesforceMcpClient(
+        accessToken
+      );
 
     const tools = await client.listTools();
 
