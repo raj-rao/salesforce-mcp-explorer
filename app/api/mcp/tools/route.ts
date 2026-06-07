@@ -28,8 +28,15 @@ export async function GET() {
       version: "0.1.0",
     });
 
-    console.log("Access Token Present:", !!accessToken);
-    console.log("ID Token Present:", !!idToken);
+    console.log(
+      "Access Token Prefix:",
+      accessToken?.substring(0, 20)
+    );
+
+    console.log(
+      "ID Token Prefix:",
+      idToken?.substring(0, 20)
+    );
     console.log(
       "MCP URL:",
       process.env.SALESFORCE_MCP_URL
@@ -43,8 +50,8 @@ export async function GET() {
         {
           requestInit: {
             headers: {
-              //Authorization: `Bearer ${accessToken}`,
-              Authorization: `Bearer ${idToken}`,
+              Authorization: `Bearer ${accessToken}`,
+              //Authorization: `Bearer ${idToken}`,
             },
           },
         }
