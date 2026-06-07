@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import TestChatButton from "@/components/TestChatButton";
 
 export default async function Dashboard() {
   const cookieStore = await cookies();
@@ -10,7 +11,7 @@ export default async function Dashboard() {
     cookieStore.get("sf_instance_url")?.value;
 
   return (
-    <main className="p-10">
+    <main className="p-8">
       <h1 className="text-3xl font-bold">
         Salesforce MCP Dashboard
       </h1>
@@ -23,20 +24,16 @@ export default async function Dashboard() {
         <p>
           Instance URL: {instanceUrl ?? "Not Available"}
         </p>
+
         <a
           href="/api/sf/test"
           className="inline-block rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
         >
           Test Salesforce API
         </a>
+
         &nbsp;&nbsp;&nbsp;
-        <a
-          href="/api/mcp/test"
-          className="inline-block rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
-        >
-          Test MCP Endpoint
-        </a>
-        &nbsp;&nbsp;&nbsp;
+
         <a
           href="/api/mcp/tools"
           className="inline-block rounded bg-purple-600 px-4 py-2 text-white hover:bg-purple-700"
@@ -44,7 +41,9 @@ export default async function Dashboard() {
           List MCP Tools
         </a>
 
-
+        <div className="pt-6">
+          <TestChatButton />
+        </div>
       </div>
     </main>
   );
