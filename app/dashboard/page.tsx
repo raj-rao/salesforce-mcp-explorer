@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import TestChatButton from "@/components/TestChatButton";
+import ChatPanel from "@/components/ChatPanel";
 
 export default async function Dashboard() {
   const cookieStore = await cookies();
@@ -43,6 +44,8 @@ export default async function Dashboard() {
 
         <div className="pt-6">
           <TestChatButton />
+          <br></br>
+          <ChatPanel />
         </div>
       </div>
     </main>
