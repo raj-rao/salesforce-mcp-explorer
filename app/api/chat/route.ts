@@ -51,8 +51,15 @@ export async function POST(
       const result =
         await getUserInfo(accessToken);
 
-      const user =
-        result.structuredContent.identity;
+      const user = (
+        result.structuredContent as {
+          identity: {
+            displayName: string;
+            profileName: string;
+            companyName: string;
+          };
+        }
+      ).identity;
 
       return NextResponse.json({
         answer: `You are ${user.displayName}, ${user.profileName} at ${user.companyName}.`,
@@ -71,19 +78,28 @@ export async function POST(
       const result =
         await getObjectSchema(accessToken);
 
+      const schema = result.structuredContent as {
+        index: {
+          objectCount: number;
+          objects: {
+            name: string;
+          }[];
+        };
+      };
+
       const objects =
-        result.structuredContent.index.objects
-          .map(
-            (obj: {
-              name: string;
-            }) => obj.name
-          )
+        schema.index.objects
+          .map((obj) => obj.name)
           .join(", ");
 
       return NextResponse.json({
-        answer: `I found ${result.structuredContent.index.objectCount} Salesforce objects.`,
+        answer: `I found ${schema.index.objectCount} Salesforce objects.`,
         tool: "getObjectSchema",
-        data: objects,
+        data: {
+          objectCount:
+            schema.index.objectCount,
+          objects,
+        },
       });
     }
 
