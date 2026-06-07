@@ -2,9 +2,16 @@
 
 import { useState } from "react";
 
+type SalesforceRecord = {
+  Id?: string;
+  Name?: string;
+  [key: string]: unknown;
+};
+
 type Message = {
   role: "user" | "assistant";
   content: string;
+  records?: SalesforceRecord[];
 };
 
 export default function ChatPanel() {
@@ -55,6 +62,7 @@ export default function ChatPanel() {
           content:
             data.answer ??
             "No response returned.",
+          records: data.records,
         },
       ]);
     } catch (error) {
@@ -99,6 +107,42 @@ export default function ChatPanel() {
             </div>
 
             <div>{msg.content}</div>
+            {msg.records &&
+              msg.records.length > 0 && (
+                <table className="mt-2 w-full border border-gray-300 text-sm">
+                  <thead>
+                    <tr>
+                      <th className="border p-2 text-left">
+                        Id
+                      </th>
+                      <th className="border p-2 text-left">
+                        Name
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {msg.records.map(
+                      (record, index) => (
+                        <tr key={index}>
+                          <td className="border p-2">
+                            {String(
+                              record.Id ?? ""
+                            )}
+                          </td>
+
+                          <td className="border p-2">
+                            {String(
+                              record.Name ?? ""
+                            )}
+                          </td>
+                        </tr>
+                      )
+                    )}
+                  </tbody>
+                </table>
+              )}      
+
           </div>
         ))}
       </div>
