@@ -18,7 +18,13 @@ type Message = {
   records?: SalesforceRecord[];
 };
 
-export default function ChatPanel() {
+type ChatPanelProps = {
+  onClose: () => void;
+};
+
+export default function ChatPanel({
+  onClose,
+}: ChatPanelProps) {
   const [message, setMessage] =
     useState("");
 
@@ -121,10 +127,17 @@ export default function ChatPanel() {
     >
       {/* Header */}
 
-      <div className="border-b p-4">
+      <div className="flex items-center justify-between border-b p-4">
         <h2 className="text-lg font-bold">
           Salesforce Chat
         </h2>
+
+        <button
+          onClick={onClose}
+          className="rounded px-2 py-1 text-sm hover:bg-gray-100"
+        >
+          ✕
+        </button>
       </div>
 
       {/* Messages */}
@@ -156,8 +169,7 @@ export default function ChatPanel() {
                 <div>{msg.content}</div>
 
                 {msg.records &&
-                  msg.records.length >
-                    0 && (
+                  msg.records.length > 0 && (
                     <div className="mt-3 overflow-x-auto">
                       <table className="min-w-full border text-xs">
                         <thead>
@@ -165,7 +177,6 @@ export default function ChatPanel() {
                             <th className="border p-2 text-left">
                               Id
                             </th>
-
                             <th className="border p-2 text-left">
                               Name
                             </th>
@@ -208,9 +219,7 @@ export default function ChatPanel() {
           )
         )}
 
-        <div
-          ref={messagesEndRef}
-        />
+        <div ref={messagesEndRef} />
       </div>
 
       {/* Input */}
